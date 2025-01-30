@@ -1,0 +1,38 @@
+name : "Run Python Script"
+
+on:
+  schedule:
+    - cron: '0 0,3,6,9,12 * * *'
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set Up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11.9"
+
+      - name: install dependencies
+        run: |
+          pip install requests python-dotenv beautifulsoup4 lxml
+
+      - name: load cache
+        uses: actions/cache@v3
+        with:
+          path: sent_notices.txt
+          key: sent_notices-cache
+
+      - name: execute python script
+        run: python scrapingNotice.py
+
+      - name: update cache
+        uses: actions/cache@v3
+        with:
+          path: sent_notices.txt
+          key: sent-notices-cache
