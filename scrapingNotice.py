@@ -16,10 +16,10 @@ soup = BeautifulSoup(res.text, "lxml")
 notices = soup.find_all("td",attrs={"class":"title"})
 times = soup.find_all("td",attrs={"class":"time"})
 today = datetime.datetime.now().strftime("%Y.%m.%d")
-test_time = datetime.datetime.now()
 
-test_message = {"content":f"{test_time.strftime('%Y-%m-%d %H:%M:%S')}"} # github action 테스트코드
-requests.post(discord_url,data=test_message)
+# test_time = datetime.datetime.now()
+# test_message = {"content":f"{test_time.strftime('%Y-%m-%d %H:%M:%S')}"} # github action 테스트코드
+# requests.post(discord_url,data=test_message)
 
 # 파일이 없을경우
 if not os.path.exists(CACHE_FILE):
